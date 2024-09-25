@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h4>edit products here.....</h4><br>
+    <form  method="post" action="{% url 'update_product' up_id=pro.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+                 <div class="form-group">
+                      <label for="exampleSelectGender">select category</label>
+                        <select class="form-control" id="exampleSelectGender" name="cname"  >
+                          <option>{{pro.CATEGORY}}</option>
+
+                            {% for i in cat %}
+                          <option>{{i.CATEGORYNAME}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+
+
+                    <div class="form-group">
+                      <label > product  Name</label>
+                      <input type="text" class="form-control"  name="pname" value="{{pro.PRODUCTNAME}}">
+                    </div>
+                   <div class="form-group">
+                      <label > price</label>
+                      <input type="text" class="form-control"  name="pprice" value="{{pro.PRODUCTPRICE}}">
+                    </div>
+
+                    <div class="form-group">
+                      <label >Product Description</label>
+                     <input type="text" class="form-control"  name="pdescription" value="{{pro.PRODUCTDESCRIPTION}}">
+                    </div>
+                   <div>
+                       <label> product image</label><br>
+
+                       <img src="{{pro.PRODUCTIMAGE.url}}" width="100px" height="100px">
+
+
+                       <input type="file" name="pimage" ><br><br>
+                   </div><br>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+</div>
+
+</body>
+</html>
+{% endblock %}

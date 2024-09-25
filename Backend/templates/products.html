@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h4>Add products here.....</h4><br>
+    <form  method="post" action="{% url 'save_product' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+                 <div class="form-group">
+                      <label for="exampleSelectGender">select category</label>
+                        <select class="form-control" id="exampleSelectGender" name="cname">
+                          <option>select</option>
+
+                            {% for d in cat %}
+                          <option>{{d.CATEGORYNAME}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+
+
+                    <div class="form-group">
+                      <label > product  Name</label>
+                      <input type="text" class="form-control"  name="pname">
+                    </div>
+                   <div class="form-group">
+                      <label > price</label>
+                      <input type="text" class="form-control"  name="pprice">
+                    </div>
+
+                    <div class="form-group">
+                      <label >Product Description</label>
+                     <input type="text" class="form-control"  name="pdescription">
+                    </div>
+                   <div>
+                       <label> product image</label><br>
+                       <input type="file" name="pimage" ><br><br>
+                   </div><br>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+ {% for i in messages %}
+  {% if i.tags == 'warning' %}
+    <script>
+        swal('{{i}}','','warning')
+    </script>
+
+  {% elif i.tags == 'error' %}
+    <script>
+        swal('{{i}}','','error')
+    </script>
+  {% elif i.tags == 'info' %}
+    <script>
+        swal('{{i}}','','info')
+    </script>
+  {% else %}
+    <script>
+        swal('{{i}}','','success')
+    </script>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</body>
+</html>
+{% endblock %}
